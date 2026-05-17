@@ -9,9 +9,6 @@ local LP = Players.LocalPlayer
 
 --// NPaz LHub Key System (Roxo)
 
-local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
-local Players = game:GetService("Players")
 
 local LP = Players.LocalPlayer
 
