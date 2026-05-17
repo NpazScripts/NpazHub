@@ -1,13 +1,11 @@
-local ValidKeys = {
-    ["BGCqXMUPoLGbzNkzoKhMdvWUUlfXJouQ"] = true
-}
-
 if not script_key then
     game.Players.LocalPlayer:Kick("No Key")
     return
 end
 
-if not ValidKeys[script_key] then
+local CorrectKey = "BGCqXMUPoLGbzNkzoKhMdvWUUlfXJouQ"
+
+if script_key ~= CorrectKey then
     game.Players.LocalPlayer:Kick("Invalid Key")
     return
 end
