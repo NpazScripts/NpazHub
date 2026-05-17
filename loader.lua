@@ -3,10 +3,19 @@ if not script_key then
     return
 end
 
-local CorrectKey = "BGCqXMUPoLGbzNkzoKhMdvWUUlfXJouQ"
+local Keys = {
+    ["xQ92LmZaP81KdYtRwQeN7sUvBcXoM2Hp"] = 1779059200
+}
 
-if script_key ~= CorrectKey then
+local Expire = Keys[script_key]
+
+if not Expire then
     game.Players.LocalPlayer:Kick("Invalid Key")
+    return
+end
+
+if os.time() > Expire then
+    game.Players.LocalPlayer:Kick("Expired Key")
     return
 end
 
