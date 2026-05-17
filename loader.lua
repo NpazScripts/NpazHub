@@ -4,19 +4,29 @@ if not script_key then
 end
 
 local Keys = {
-    ["xQ92LmZaP81KdYtRwQeN7sUvBcXoM2Hp"] = 1779059200
+    ["xQ92LmZaP81KdYtRwQeN7sUvBcXoM2Hp"] = {
+        expire = 1779059200,
+        lifetime = false
+    },
+
+    ["LIFETIME-KEY-123"] = {
+        expire = math.huge,
+        lifetime = true
+    }
 }
 
-local Expire = Keys[script_key]
+local data = Keys[script_key]
 
-if not Expire then
+if not data then
     game.Players.LocalPlayer:Kick("Invalid Key")
     return
 end
 
-if os.time() > Expire then
-    game.Players.LocalPlayer:Kick("Expired Key")
-    return
+if not data.lifetime then
+    if os.time() > data.expire then
+        game.Players.LocalPlayer:Kick("Expired Key")
+        return
+    end
 end
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/NpazScripts/NpazHub/main/hub.lua"))()
