@@ -1,32 +1,21 @@
-if not script_key then
-    game.Players.LocalPlayer:Kick("No Key")
+local key = script_key or ""
+local url = "https://script.google.com/macros/s/AKfycbyqZprBKyJbJJ1IpfJlv-NKMn5U-Ymxqg0kF0Tu7GPMJoCgSMWyXxOV4yHsIj8plUny/exec?key=" .. key
+
+local ok, result = pcall(function()
+    return game:HttpGet(url)
+end)
+
+if not ok or not result then
+    game:GetService("Players").LocalPlayer:Kick("❌ Erro ao verificar key — Npaz LHub")
     return
 end
 
-local Keys = {
-    ["xQ92LmZaP81KdYtRwQeN7sUvBcXoM2Hp"] = {
-        expire = 1779059200,
-        lifetime = false
-    },
+result = result:lower():gsub("%s+", "")
 
-    ["LIFETIME-KEY-123"] = {
-        expire = math.huge,
-        lifetime = true
-    }
-}
-
-local data = Keys[script_key]
-
-if not data then
-    game.Players.LocalPlayer:Kick("Invalid Key")
-    return
+if result == "valid" then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/NpazScripts/npaz.v3.lua/main/npaz.v3.lua"))()
+elseif result == "expired" then
+    game:GetService("Players").LocalPlayer:Kick("⏰ Sua key expirou — Npaz LHub")
+else
+    game:GetService("Players").LocalPlayer:Kick("❌ Key inválida — Npaz LHub")
 end
-
-if not data.lifetime then
-    if os.time() > data.expire then
-        game.Players.LocalPlayer:Kick("Expired Key")
-        return
-    end
-end
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/NpazScripts/NpazHub/main/hub.lua"))()
